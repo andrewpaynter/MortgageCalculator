@@ -10,13 +10,30 @@ public class Main {
         final byte MONTHS_IN_YEAR = 12;
         final byte PERCENT = 100;
         Scanner scan = new Scanner(System.in);
-
-        System.out.print("Principal: ");
-        int principal = scan.nextInt();
-        System.out.print("Annual Interest Rate: ");
-        double annualInterestRate = scan.nextDouble();
-        System.out.print("Period (Years): ");
-        int period = scan.nextInt();
+        int principal;
+        double annualInterestRate;
+        int period;
+        while(true) {
+            System.out.print("Principal ($1K - $1M): ");
+            principal = scan.nextInt();
+            if(principal < 1_000 || principal > 1_000_000) {
+                System.out.println("Enter a number between 1,000 and 1,000,000.");
+            } else break;
+        }
+        while(true) {
+            System.out.print("Annual Interest Rate: ");
+            annualInterestRate = scan.nextDouble();
+            if(annualInterestRate <= 0 || annualInterestRate > 30) {
+                System.out.println("Enter a value greater than 0 and less than or equal to 30.");
+            } else break;
+        }
+        while(true) {
+            System.out.print("Period (Years): ");
+            period = scan.nextInt();
+            if(period < 1 || period > 30) {
+                System.out.println("Enter a value between 1 and 30.");
+            } else break;
+        }
 
         double monthlyInterestRate = (annualInterestRate / MONTHS_IN_YEAR) / PERCENT;
         int numberOfPayments = period * MONTHS_IN_YEAR;
