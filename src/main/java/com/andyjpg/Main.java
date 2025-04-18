@@ -10,13 +10,18 @@ public class Main {
     final static byte PERCENT = 100;
 
     public static void main(String[] args) {
-        int principal = (int) readNumber(
-                "Principal ($1K - $1M): ",
+        int homeValue = (int) readNumber(
+                "Home Value ($1K - $1M): $",
                 1_000,
                 1_000_000
         );
+        int downPayment = (int) readNumber(
+                "Down Payment Amount: $",
+                0,
+                homeValue
+        );
         float annualInterestRate = (float) readNumber(
-                "Annual Interest Rate: ",
+                "Annual Interest Rate (%): ",
                 0,
                 30
         );
@@ -26,6 +31,7 @@ public class Main {
                 30
         );
 
+        int principal = homeValue - downPayment;
         float monthlyInterestRate = (annualInterestRate / MONTHS_IN_YEAR) / PERCENT;
         int numberOfTotalPayments = period * MONTHS_IN_YEAR;
 
