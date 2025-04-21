@@ -25,8 +25,9 @@ public class Main {
                 30
         );
 
-        var mortgage = new Mortgage(homeValue, downPayment, annualInterestRate, period);
+        var calculator = new MortgageCalculator(homeValue, downPayment, annualInterestRate, period);
 
-        MortgageReport.printMortgageInformation(mortgage);
+        var report = new MortgageReport(calculator);
+        report.printMortgageInformation();
     }
 }

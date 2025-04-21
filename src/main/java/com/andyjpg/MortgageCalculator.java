@@ -1,6 +1,6 @@
 package com.andyjpg;
 
-public class Mortgage {
+public class MortgageCalculator {
     final static byte MONTHS_IN_YEAR = 12;
     final static byte PERCENT = 100;
 
@@ -10,7 +10,7 @@ public class Mortgage {
     private byte period;
 
 
-    public Mortgage(int homeValue, int downPayment, float annualInterestRate, byte period) {
+    public MortgageCalculator(int homeValue, int downPayment, float annualInterestRate, byte period) {
         setHomeValue(homeValue);
         setDownPayment(downPayment);
         setAnnualInterestRate(annualInterestRate);
