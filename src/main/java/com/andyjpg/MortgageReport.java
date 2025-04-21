@@ -3,10 +3,12 @@ package com.andyjpg;
 import java.text.NumberFormat;
 
 public class MortgageReport {
+    private final NumberFormat currency;
     private final MortgageCalculator calculator;
 
     MortgageReport(MortgageCalculator calculator) {
         this.calculator = calculator;
+        currency = NumberFormat.getCurrencyInstance();
     }
 
     public void printMortgageInformation() {
@@ -17,14 +19,13 @@ public class MortgageReport {
     private void printMonthlyPayments(MortgageCalculator calculator) {
         Console.printHeader("mortgage");
         double monthlyPayment = calculator.getMortgageRate();
-        System.out.println("Monthly Payments: " + NumberFormat.getCurrencyInstance().format(monthlyPayment));
+        System.out.println("Monthly Payments: " + currency.format(monthlyPayment));
     }
 
     private void printPaymentSchedule(MortgageCalculator calculator) {
         Console.printHeader("payment schedule");
-        double[] paymentSchedule = calculator.getPaymentSchedule();
-        for (double payment : paymentSchedule) {
-            System.out.println(NumberFormat.getCurrencyInstance().format(payment));
+        for (double payment : calculator.getPaymentSchedule()) {
+            System.out.println(currency.format(payment));
         }
     }
 }

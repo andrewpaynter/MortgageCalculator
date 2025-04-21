@@ -1,7 +1,5 @@
 package com.andyjpg;
 
-import java.text.NumberFormat;
-
 public class MortgageCalculator {
     final static byte MONTHS_IN_YEAR = 12;
     final static byte PERCENT = 100;
@@ -79,10 +77,9 @@ public class MortgageCalculator {
     }
 
     public double[] getPaymentSchedule() {
-        var numberOfTotalPayments = getNumberOfTotalPayments();
-        double[] paymentSchedule = new double[numberOfTotalPayments + 1];
-        for (int numberOfPayments = 0; numberOfPayments <= numberOfTotalPayments; numberOfPayments++) {
-            paymentSchedule[numberOfPayments] = getLoanBalance(numberOfPayments);
+        double[] paymentSchedule = new double[getNumberOfTotalPayments()];
+        for (int numberOfPayments = 0; numberOfPayments < paymentSchedule.length; numberOfPayments++) {
+            paymentSchedule[numberOfPayments] = getLoanBalance(numberOfPayments + 1);
         }
         return paymentSchedule;
     }
