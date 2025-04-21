@@ -1,5 +1,7 @@
 package com.andyjpg;
 
+import java.text.NumberFormat;
+
 public class MortgageCalculator {
     final static byte MONTHS_IN_YEAR = 12;
     final static byte PERCENT = 100;
@@ -53,8 +55,19 @@ public class MortgageCalculator {
         return (annualInterestRate / MONTHS_IN_YEAR) / PERCENT;
     }
 
-    public int getNumberOfTotalPayments() {
+    private int getNumberOfTotalPayments() {
         return period * MONTHS_IN_YEAR;
+    }
+
+    private double getLoanBalance(
+            int numberOfPayments) {
+        var principal = getPrincipal();
+        var monthlyInterestRate = getMonthlyInterestRate();
+        var totalNumberOfPayments = getNumberOfTotalPayments();
+        return principal
+                * (Math.pow(1 + monthlyInterestRate, totalNumberOfPayments) - Math.pow(1 + monthlyInterestRate,
+                                                                                       numberOfPayments))
+                / (Math.pow(1 + monthlyInterestRate, totalNumberOfPayments) - 1);
     }
 
     public double getMortgageRate() {
@@ -65,14 +78,12 @@ public class MortgageCalculator {
                 / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1));
     }
 
-    public double getLoanBalance(
-            int numberOfPayments) {
-        var principal = getPrincipal();
-        var monthlyInterestRate = getMonthlyInterestRate();
-        var totalNumberOfPayments = getNumberOfTotalPayments();
-        return principal
-                * (Math.pow(1 + monthlyInterestRate, totalNumberOfPayments) - Math.pow(1 + monthlyInterestRate,
-                                                                                       numberOfPayments))
-                / (Math.pow(1 + monthlyInterestRate, totalNumberOfPayments) - 1);
+    public double[] getPaymentSchedule() {
+        var numberOfTotalPayments = getNumberOfTotalPayments();
+        double[] paymentSchedule = new double[numberOfTotalPayments + 1];
+        for (int numberOfPayments = 0; numberOfPayments <= numberOfTotalPayments; numberOfPayments++) {
+            paymentSchedule[numberOfPayments] = getLoanBalance(numberOfPayments);
+        }
+        return paymentSchedule;
     }
 }
