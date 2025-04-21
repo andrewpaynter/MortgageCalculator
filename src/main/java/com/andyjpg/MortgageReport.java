@@ -22,10 +22,9 @@ public class MortgageReport {
 
     private void printPaymentSchedule(MortgageCalculator calculator) {
         Console.printHeader("payment schedule");
-        var numberOfTotalPayments = calculator.getNumberOfTotalPayments();
-        for (int numberOfPayments = 0; numberOfPayments <= numberOfTotalPayments; numberOfPayments++) {
-            double remainingBalance = calculator.getLoanBalance(numberOfPayments);
-            System.out.println(NumberFormat.getCurrencyInstance().format(remainingBalance));
+        double[] paymentSchedule = calculator.getPaymentSchedule();
+        for (double payment : paymentSchedule) {
+            System.out.println(NumberFormat.getCurrencyInstance().format(payment));
         }
     }
 }
